@@ -1,0 +1,28 @@
+<div class="header w-100">
+  <p-button type="button" icon="pi pi-check" class="p-button p-button-text" label="Clear" (onClick)="handleClear()"></p-button>
+  <p-calendar [(ngModel)]="date" (onSelect)="handleSelectDate($event)" [maxDate]="maxDate" [disabledDays]="[0, 6]"></p-calendar>
+</div>
+<div class="table-wrap w-100">
+  <p-table [columns]="cols" [value]="filteredCurrencies" [tableStyle]="{'min-width': '100%', 'display': 'flex', 'flex-direction': 'column'}" class="w-100">
+    <ng-template pTemplate="header" let-columns class="w-100">
+      <tr class="t-header-column">
+        <th *ngFor="let col of columns" class="t-header-row">
+          <span>{{col.header}}</span>
+          <i class="pi cursor-pointer" [ngClass]="{'pi-filter-fill': filter === col.field, 'pi-filter': filter !== col.field}" (click)="handleFilter(col.field)"></i>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" class="w-100">
+      <tr class="w-100 t-column">
+        <td *ngFor="let col of columns" class="t-row">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-paginator [rows]="rowsPerPage" [totalRecords]="currencies.length" [rowsPerPageOptions]="rowsPerPageOptions" (onPageChange)="paginate($event)"></p-paginator>
+<p-dialog header="Error" [(visible)]="isError" (onHide)="handleClear()">
+  {{errorMessage}}
+</p-dialog>
+

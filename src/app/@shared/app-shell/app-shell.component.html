@@ -1,0 +1,15 @@
+<div class="shell">
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+    <div>
+      <div class="theme-title">
+        Wibierz widok
+      </div>
+      <div class="theme-selector">
+        <p-selectButton [options]="themes" [(ngModel)]="selectedTheme" optionLabel="name" pButton (onChange)="handleChangeTheme($event.value.value)"></p-selectButton>
+      </div>
+    </div>
+  </div>
+</div>
